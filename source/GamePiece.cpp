@@ -1,13 +1,28 @@
-#include <string>
+#include "../headers/GamePiece.h"
 
-using namespace std;
+void GamePiece::setPosition(int x, int y) {
+    this->x = x;
+    this->y = y;
 
-class GamePiece {
-    public:
-        std::string player;
-        std::string pieceName;
-        int x,y;
-        bool outOfPlay;
+    printf("%d \n", x);
+    printf("%d \n", y);
+}
 
-        virtual bool validMove(int x, int y) = 0;
-};
+GamePiece::GamePiece(std::string playerName, int posX, int posY, std::string name) {
+    player = playerName;
+    pieceName = name;
+    setPosition(posX, posY);
+}
+
+GamePiece::GamePiece() {
+
+}
+
+GamePiece::~GamePiece() {
+
+}
+
+
+
+
+
