@@ -3,9 +3,6 @@
 void GamePiece::setPosition(int x, int y) {
     this->x = x;
     this->y = y;
-
-    printf("%d \n", x);
-    printf("%d \n", y);
 }
 
 GamePiece::GamePiece(std::string playerName, int posX, int posY, std::string name) {
@@ -18,8 +15,13 @@ GamePiece::GamePiece() {
 
 }
 
-GamePiece::~GamePiece() {
 
+bool GamePiece::getHasMoved() {
+    return hasMoved;
+}
+
+void GamePiece::setHasMoved() {
+    hasMoved = true;
 }
 
 

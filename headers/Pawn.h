@@ -7,6 +7,7 @@ class Pawn: public GamePiece {
 
     public:
         Pawn(std::string playerName, int x, int y);
+        int GamePiece::maxSpaceMove = 1;
 
 };
 
