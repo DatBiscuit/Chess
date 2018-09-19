@@ -7,7 +7,7 @@ class Rook: public GamePiece {
 
     public:
         Rook(std::string playerName, int x, int y);
-        int GamePiece::maxSpaceMove = 8;
+        bool validMove(int x, int y, GamePiece* a);
 };
 
 #endif //ROOK_H

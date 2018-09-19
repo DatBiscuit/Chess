@@ -7,7 +7,7 @@ class Bishop: public GamePiece {
 
     public:
         Bishop(std::string playerName, int x, int y);
-        int GamePiece::maxSpaceMove = 8;
+        bool validMove(int x, int y, GamePiece* a);
 
 };
 

@@ -10,9 +10,8 @@ class GamePiece {
         std::string player;
         std::string pieceName;
         int x,y;
-        int maxSpaceMove;
 
-        virtual bool validMove(int x, int y, GamePiece* a);
+        virtual bool validMove(int x, int y, GamePiece* a) = 0;
         void setPosition(int x, int y);
         GamePiece();
         GamePiece(std::string playerName, int posX, int posY, std::string name);

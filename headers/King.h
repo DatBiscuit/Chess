@@ -7,7 +7,7 @@ class King: public GamePiece {
 
     public:
         King(std::string playerName, int x, int y);
-        int GamePiece::maxSpaceMove = 1;
+        bool validMove(int x, int y, GamePiece* a);
 };
 
 #endif //KING_H

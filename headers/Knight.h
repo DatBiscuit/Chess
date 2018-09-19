@@ -7,7 +7,7 @@ class Knight: public GamePiece {
 
     public:
         Knight(std::string playerName, int x, int y);
-        int GamePiece::maxSpaceMove = 4;
+        bool validMove(int x, int y, GamePiece* a);
 };
 
 #endif //KNIGHT_H

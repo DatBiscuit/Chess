@@ -5,7 +5,7 @@ Pawn::Pawn(std::string playerName, int x, int y)
     :GamePiece(playerName, x, y, "pawn") {
 }
 
-bool GamePiece::validMove(int x, int y, GamePiece* a) {
+bool Pawn::validMove(int x, int y, GamePiece* a) {
     //Can only move up 2 on first move or up one
     //Only considered black's move
     if(a->player.compare("black") == 0) {
@@ -16,7 +16,7 @@ bool GamePiece::validMove(int x, int y, GamePiece* a) {
             setHasMoved();
             return true;
         } else {
-            if(a->x + maxSpaceMove == y) {
+            if(a->x + 1 == y) {
                 return true;
             }
             return false;
@@ -29,7 +29,7 @@ bool GamePiece::validMove(int x, int y, GamePiece* a) {
             setHasMoved();
             return true;
         } else {
-            if(a->x - maxSpaceMove == y) {
+            if(a->x - 1 == y) {
                 return true;
             }
             return false;
