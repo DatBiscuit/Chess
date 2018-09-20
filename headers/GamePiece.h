@@ -1,9 +1,11 @@
+#include <stdlib.h>
+#include <stdio.h>
 #include <string>
+
 
 #ifndef GAMEPIECE_H
 #define GAMEPIECE_H
 
-using namespace std;
 
 class GamePiece {
     public:
@@ -16,11 +18,6 @@ class GamePiece {
         GamePiece();
         GamePiece(std::string playerName, int posX, int posY, std::string name);
 
-        bool getHasMoved();
-        void setHasMoved();
-
-    private:
-        bool hasMoved = false;
 };
 
 #endif //GAMEPIECE_H

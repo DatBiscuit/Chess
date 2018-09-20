@@ -1,6 +1,5 @@
 #include <Tile.h>
-#include <stdio.h>
-#include <iostream>
+
 
 Tile::Tile(std::string type) {
     this->type = type;

@@ -12,8 +12,8 @@ bool Pawn::validMove(int x, int y, GamePiece* a) {
         if(a->y != y) {
             return false;
         }
-        if(!getHasMoved() && a->x + 2 == y) {
-            setHasMoved();
+        if(a->x + 2 == y) {
+           
             return true;
         } else {
             if(a->x + 1 == y) {
@@ -25,8 +25,8 @@ bool Pawn::validMove(int x, int y, GamePiece* a) {
         if(a->y != y) {
             return false;
         }
-        if(!getHasMoved() && a->x - 2 == y) {
-            setHasMoved();
+        if(a->x - 2 == y) {
+        
             return true;
         } else {
             if(a->x - 1 == y) {

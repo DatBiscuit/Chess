@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <stdio.h>
 #include <string>
 #include <GamePiece.h>
 #include <Pawn.h>
@@ -6,7 +8,8 @@
 #include <Rook.h>
 #include <Knight.h>
 #include <King.h>
-#include <array>
+
+
 
 #ifndef TILE_H
 #define TILE_H

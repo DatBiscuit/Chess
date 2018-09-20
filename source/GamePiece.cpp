@@ -1,4 +1,4 @@
-#include "../headers/GamePiece.h"
+#include "GamePiece.h"
 
 void GamePiece::setPosition(int x, int y) {
     this->x = x;
@@ -15,14 +15,6 @@ GamePiece::GamePiece() {
 
 }
 
-
-bool GamePiece::getHasMoved() {
-    return hasMoved;
-}
-
-void GamePiece::setHasMoved() {
-    hasMoved = true;
-}
 
 
 
