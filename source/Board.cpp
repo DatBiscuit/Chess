@@ -138,3 +138,18 @@ void Board::createKings() {
     board[7][3].assignedPiece = addblack;
 
 }
+
+void Board::updateBoard(int oldX, int oldY, int newX, int newY) {
+    printf("%d %d %d %d\n", oldX, oldY, newX, newY);
+    GamePiece* movedPiece = board[oldX][oldY].assignedPiece;
+    movedPiece->setPosition(newX, newY);
+    board[oldX][oldY].assignedPiece = NULL;
+    board[newX][newY].assignedPiece = movedPiece;
+}
+
+bool Board::gamepieceAtSpot(int x, int y) {
+    if(board[x][y].assignedPiece == NULL) {
+        return false;
+    }
+    return true;
+}
