@@ -73,16 +73,18 @@
                     cout << "Player Black's Turn" << endl;
                 }
                 getline(cin,input);
-                if(input.compare("quit") != 0){
-                    while (!checkForValidInput(input)) {
-                        cout << "Invalid Input" << endl;
-                        getline(cin,input);
-                    }
-                    while(!board.gamepieceAtSpot(input[1] - '0', input[0] -'a')) {
-                        cout << "No piece at that spot" << endl;
-                        getline(cin, input);
-                    }
-                    boardChanges(board, input);
+                if(!checkForValidInput(input)) {
+                    cout << "Invalid Input" << endl;
+                    continue;
+                }
+                if(!board.gamepieceAtSpot(input[1] - '0', input[0] -'a')) {
+                    cout << "No piece at that spot" << endl;
+                    continue;
+                }
+                if(!boardChanges(board, input, whitesTurn)) {
+                    continue;
+                }
+
                     whitesTurn = !whitesTurn;
                 }
 
