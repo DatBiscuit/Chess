@@ -6,5 +6,10 @@ Rook::Rook(std::string playerName, int x, int y)
 }
 
 bool Rook::validMove(int x, int y, GamePiece* a) {
-    return false;
+
+    if(a->y != y && a->x != x) {
+        return false;
+    }
+    
+    return true;
 }

@@ -6,7 +6,7 @@
 #include <ctype.h>
 
     bool checkForValidInput(std::string userInput);
-    void boardChanges(Board oldBoard, std::string userInput);
+    bool boardChanges(Board oldBoard, std::string userInput, bool whitesTurn);
 
     int main(int argc, char* argv[]) {
         std::string input = "";
@@ -23,15 +23,19 @@
                 cout << "Player Black's Turn" << endl;
             }
             getline(cin,input);
-            while (!checkForValidInput(input)) {
+
+            if(!checkForValidInput(input)) {
                 cout << "Invalid Input" << endl;
-                getline(cin,input);
+                continue;
             }
-            while(!board.gamepieceAtSpot(input[1] - '0', input[0] -'a')) {
+            if(!board.gamepieceAtSpot(input[1] - '0', input[0] -'a')) {
                 cout << "No piece at that spot" << endl;
-                getline(cin, input);
+                continue;
             }
-            boardChanges(board, input);
+            if(!boardChanges(board, input, whitesTurn)) {
+                continue;
+            }
+
             whitesTurn = !whitesTurn;
         }
 
@@ -40,12 +44,24 @@
         return 0;
     }
 
-    void boardChanges(Board oldBoard, std::string userInput) {
+    bool boardChanges(Board oldBoard, std::string userInput, bool whitesTurn) {
         int currY = userInput[0] - 'a';
         int currX = userInput[1] - '0';
         int newY = userInput[3] - 'a';
         int newX = userInput[4] - '0';
-        oldBoard.updateBoard(currX, currY, newX, newY);
+        if(oldBoard.gamepieceAtSpot(newX, newY)) {
+            cout << "There is a Game Piece at that location" << endl;
+            return false;
+        }
+        if(!oldBoard.rightColorPiece(whitesTurn, currX, currY)) {
+            cout << "Invalid Selection of Chess Piece, that is not your Piece" << endl;
+            return false;
+        }
+        if (!oldBoard.updateBoard(currX, currY, newX, newY)) {
+            cout << "Invalid Move, Chess Piece cannot move like that" << endl;
+            return false;
+        }
+        return true;
     }
 
     bool checkForValidInput(std::string userInput) {

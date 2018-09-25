@@ -134,17 +134,22 @@ void Board::createKings() {
     King* addwhite = new King("white", 0, 3);
     board[0][3].assignedPiece = addwhite;
 
-    King* addblack = new King("black", 7, 0);
+    King* addblack = new King("black", 7, 3);
     board[7][3].assignedPiece = addblack;
 
 }
 
-void Board::updateBoard(int oldX, int oldY, int newX, int newY) {
-    printf("%d %d %d %d\n", oldX, oldY, newX, newY);
+bool Board::updateBoard(int oldX, int oldY, int newX, int newY) {
     GamePiece* movedPiece = board[oldX][oldY].assignedPiece;
+
+    if(!movedPiece->validMove(newX, newY, movedPiece)) {
+        return false;
+    }
+
     movedPiece->setPosition(newX, newY);
     board[oldX][oldY].assignedPiece = NULL;
     board[newX][newY].assignedPiece = movedPiece;
+    return true;
 }
 
 bool Board::gamepieceAtSpot(int x, int y) {
@@ -152,4 +157,14 @@ bool Board::gamepieceAtSpot(int x, int y) {
         return false;
     }
     return true;
+}
+
+bool Board::rightColorPiece(bool whitesTurn, int x, int y) {
+    if(whitesTurn && board[x][y].assignedPiece->player.compare("white")) {
+        return true;
+    }
+    if(!whitesTurn && board[x][y].assignedPiece->player.compare("black")) {
+        return true;
+    }
+    return false;
 }

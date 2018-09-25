@@ -6,17 +6,16 @@ Pawn::Pawn(std::string playerName, int x, int y)
 }
 
 bool Pawn::validMove(int x, int y, GamePiece* a) {
-    //Can only move up 2 on first move or up one
-    //Only considered black's move
     if(a->player.compare("black") == 0) {
         if(a->y != y) {
             return false;
         }
-        if(a->x + 2 == y) {
-           
+        if(a->x - 2 == x && !hasMoved) {
+            hasMoved = true;
             return true;
         } else {
-            if(a->x + 1 == y) {
+            if(a->x - 1 == x) {
+                hasMoved = true;
                 return true;
             }
             return false;
@@ -25,11 +24,12 @@ bool Pawn::validMove(int x, int y, GamePiece* a) {
         if(a->y != y) {
             return false;
         }
-        if(a->x - 2 == y) {
-        
+        if(a->x + 2 == x && !hasMoved) {
+            hasMoved = true;
             return true;
         } else {
-            if(a->x - 1 == y) {
+            if(a->x + 1 == x) {
+                hasMoved = true;
                 return true;
             }
             return false;

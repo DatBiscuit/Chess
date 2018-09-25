@@ -1,4 +1,5 @@
 #include "Bishop.h"
+#include <cmath>
 
 
 Bishop::Bishop(std::string playerName, int x, int y)
@@ -6,5 +7,8 @@ Bishop::Bishop(std::string playerName, int x, int y)
 }
 
 bool Bishop::validMove(int x, int y, GamePiece* a) {
+    if(abs(a->x - x) == abs(a->y - y)) {
+        return true;
+    }
     return false;
 }

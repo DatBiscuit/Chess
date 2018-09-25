@@ -7,8 +7,9 @@ class Board {
     public:
         void printBoard();
         void initBoard();
-        void updateBoard(int oldX, int oldY, int newX, int newY);
+        bool updateBoard(int oldX, int oldY, int newX, int newY);
         bool gamepieceAtSpot(int x, int y);
+        bool rightColorPiece(bool whitesTurn, int x, int y);
 
     private:
         Tile** board = new Tile*[8];
