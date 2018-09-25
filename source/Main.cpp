@@ -1,20 +1,25 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <Board.h>
-#include <string>
 #include <iostream>
+#include <fstream>
+#include <string>
 #include <ctype.h>
+#include <Board.h>
+
+#define TESTING false
 
     bool checkForValidInput(std::string userInput);
     bool boardChanges(Board oldBoard, std::string userInput, bool whitesTurn);
 
     int main(int argc, char* argv[]) {
+
         std::string input = "";
         Board board;
         bool whitesTurn = true;
 
         board.initBoard();
 
+<<<<<<< HEAD
         while(input.compare("quit") != 0) {
             board.printBoard();
             if(whitesTurn) {
@@ -37,9 +42,77 @@
             }
 
             whitesTurn = !whitesTurn;
+=======
+        if(TESTING == true){
+            printf("\n########## PROGRAM IS IN TEST MODE (=^ 3 ^=) ##########\n\n");
+            printf("\n ---------------- BEGIN TESTING ----------------\n\n");
+
+            string delimiter = ",";
+            string testCase; 
+            string caseNum;
+            string moveInput;
+            
+            //Create file object for input
+            ifstream testFile;
+            testFile.open("../testing/chess_test_cases.txt");
+            if(!testFile){
+                cerr << "Unable to open file ../testing/chess_test_cases.txt";
+                exit(1);
+            }
+
+            while(!testFile.eof()){
+                //Parse line by line and get case num and move input
+                getline(testFile, testCase);
+                size_t pos = testCase.find(delimiter);
+                caseNum = testCase.substr(0, pos);
+                moveInput = testCase.substr(pos+1, string::npos);
+                cout << caseNum << " => " << moveInput << endl;
+
+                //Test the case
+                printf("Before move\n");
+                board.printBoard();
+                if(!checkForValidInput(moveInput)) {
+                    cout << "Invalid Input" << endl;
+                }
+                else if(!board.gamepieceAtSpot(moveInput[1] - '0', moveInput[0] -'a')) {
+                    cout << "No piece at that spot" << endl;
+                }
+                else { 
+                    boardChanges(board, moveInput);
+                }
+                printf("After move\n");
+                board.printBoard();
+                printf("\n\n");
+            }
+            testFile.close();
+            printf("\n ---------------- END OF TESTING ----------------\n\n");
+>>>>>>> 41255545adca64ed0e86edf61b0d2bc8adfc9861
         }
+        else{
+            printf("\n########## PROGRAM IS IN USER INPUT MODE (=* 3 *=) ##########\n\n");
+            while(input.compare("quit") != 0) {
+                board.printBoard();
+                if(whitesTurn) {
+                    cout << "Player White's Turn" << endl;
+                } else {
+                    cout << "Player Black's Turn" << endl;
+                }
+                getline(cin,input);
+                if(input.compare("quit") != 0){
+                    while (!checkForValidInput(input)) {
+                        cout << "Invalid Input" << endl;
+                        getline(cin,input);
+                    }
+                    while(!board.gamepieceAtSpot(input[1] - '0', input[0] -'a')) {
+                        cout << "No piece at that spot" << endl;
+                        getline(cin, input);
+                    }
+                    boardChanges(board, input);
+                    whitesTurn = !whitesTurn;
+                }
 
-
+            }
+        }
 
         return 0;
     }
