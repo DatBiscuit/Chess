@@ -19,30 +19,6 @@
 
         board.initBoard();
 
-<<<<<<< HEAD
-        while(input.compare("quit") != 0) {
-            board.printBoard();
-            if(whitesTurn) {
-                cout << "Player White's Turn" << endl;
-            } else {
-                cout << "Player Black's Turn" << endl;
-            }
-            getline(cin,input);
-
-            if(!checkForValidInput(input)) {
-                cout << "Invalid Input" << endl;
-                continue;
-            }
-            if(!board.gamepieceAtSpot(input[1] - '0', input[0] -'a')) {
-                cout << "No piece at that spot" << endl;
-                continue;
-            }
-            if(!boardChanges(board, input, whitesTurn)) {
-                continue;
-            }
-
-            whitesTurn = !whitesTurn;
-=======
         if(TESTING == true){
             printf("\n########## PROGRAM IS IN TEST MODE (=^ 3 ^=) ##########\n\n");
             printf("\n ---------------- BEGIN TESTING ----------------\n\n");
@@ -78,7 +54,7 @@
                     cout << "No piece at that spot" << endl;
                 }
                 else { 
-                    boardChanges(board, moveInput);
+                    boardChanges(board, moveInput, whitesTurn);
                 }
                 printf("After move\n");
                 board.printBoard();
@@ -86,7 +62,6 @@
             }
             testFile.close();
             printf("\n ---------------- END OF TESTING ----------------\n\n");
->>>>>>> 41255545adca64ed0e86edf61b0d2bc8adfc9861
         }
         else{
             printf("\n########## PROGRAM IS IN USER INPUT MODE (=* 3 *=) ##########\n\n");
@@ -111,8 +86,6 @@
                 }
 
                     whitesTurn = !whitesTurn;
-                }
-
             }
         }
 
