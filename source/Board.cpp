@@ -143,7 +143,17 @@ bool Board::updateBoard(int oldX, int oldY, int newX, int newY) {
     GamePiece* movedPiece = board[oldX][oldY].assignedPiece;
 
     if(!movedPiece->validMove(newX, newY, movedPiece)) {
-        return false;
+        if(movedPiece->pieceName.compare("pawn")) {
+            Pawn* pawn = NULL;
+            if(pawn->isMoveToTakePiece(newX, newY, movedPiece) && gamepieceAtSpot(newX, newY)) {
+                movedPiece->setPosition(newX, newY);
+                board[oldX][oldY].assignedPiece = NULL;
+                board[newX][newY].assignedPiece = movedPiece;
+                return true;
+            }
+        } else {
+            return false;
+        }
     }
 
     movedPiece->setPosition(newX, newY);
@@ -168,3 +178,5 @@ bool Board::rightColorPiece(bool whitesTurn, int x, int y) {
     }
     return false;
 }
+
+

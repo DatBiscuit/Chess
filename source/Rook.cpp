@@ -13,3 +13,8 @@ bool Rook::validMove(int x, int y, GamePiece* a) {
     
     return true;
 }
+
+bool Rook::gamePieceInPath(int x, int y, GamePiece* a) {
+
+    return false;
+}

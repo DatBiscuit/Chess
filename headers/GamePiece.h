@@ -14,6 +14,7 @@ class GamePiece {
         int x,y;
 
         virtual bool validMove(int x, int y, GamePiece* a) = 0;
+        virtual bool gamePieceInPath(int x, int y, GamePiece* a) = 0;
         void setPosition(int x, int y);
         GamePiece();
         GamePiece(std::string playerName, int posX, int posY, std::string name);

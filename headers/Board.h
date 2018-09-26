@@ -11,6 +11,7 @@ class Board {
         bool gamepieceAtSpot(int x, int y);
         bool rightColorPiece(bool whitesTurn, int x, int y);
 
+
     private:
         Tile** board = new Tile*[8];
         const std::string topLetters = "   a  b  c  d  e  f  g  h \n";

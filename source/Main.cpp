@@ -97,14 +97,14 @@
         int currX = userInput[1] - '0';
         int newY = userInput[3] - 'a';
         int newX = userInput[4] - '0';
-        if(oldBoard.gamepieceAtSpot(newX, newY)) {
-            cout << "There is a Game Piece at that location" << endl;
-            return false;
-        }
         if(!oldBoard.rightColorPiece(whitesTurn, currX, currY)) {
             cout << "Invalid Selection of Chess Piece, that is not your Piece" << endl;
             return false;
         }
+        // if(oldBoard.gamepieceAtSpot(newX, newY)) {
+        //     cout << "There is a Game Piece at that location" << endl;
+        //     return false;
+        // }
         if (!oldBoard.updateBoard(currX, currY, newX, newY)) {
             cout << "Invalid Move, Chess Piece cannot move like that" << endl;
             return false;
@@ -136,3 +136,4 @@
 
         return false;
     }
+
