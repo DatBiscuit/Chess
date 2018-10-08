@@ -64,6 +64,7 @@
             printf("\n ---------------- END OF TESTING ----------------\n\n");
         }
         else{
+            
             printf("\n########## PROGRAM IS IN USER INPUT MODE (=* 3 *=) ##########\n\n");
             while(input.compare("quit") != 0) {
                 board.printBoard();
@@ -101,12 +102,8 @@
             cout << "Invalid Selection of Chess Piece, that is not your Piece" << endl;
             return false;
         }
-        // if(oldBoard.gamepieceAtSpot(newX, newY)) {
-        //     cout << "There is a Game Piece at that location" << endl;
-        //     return false;
-        // }
         if (!oldBoard.updateBoard(currX, currY, newX, newY)) {
-            cout << "Invalid Move, Chess Piece cannot move like that" << endl;
+            //cout << "Invalid Move, Chess Piece cannot move like that" << endl;
             return false;
         }
         return true;

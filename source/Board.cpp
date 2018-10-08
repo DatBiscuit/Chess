@@ -140,15 +140,17 @@ void Board::createKings() {
 }
 
 bool Board::updateBoard(int oldX, int oldY, int newX, int newY) {
+    if(oldX == newX && oldY == newY) {
+        return false;
+    }
     GamePiece* movedPiece = board[oldX][oldY].assignedPiece;
 
     if(!movedPiece->validMove(newX, newY, movedPiece)) {
+        //Checking the pawn's second valid move, only special piece to takeover pieces
         if(movedPiece->pieceName.compare("pawn")) {
             Pawn* pawn = NULL;
             if(pawn->isMoveToTakePiece(newX, newY, movedPiece) && gamepieceAtSpot(newX, newY)) {
-                movedPiece->setPosition(newX, newY);
-                board[oldX][oldY].assignedPiece = NULL;
-                board[newX][newY].assignedPiece = movedPiece;
+                movePiece(movedPiece, newX, newY);
                 return true;
             }
         } else {
@@ -156,9 +158,16 @@ bool Board::updateBoard(int oldX, int oldY, int newX, int newY) {
         }
     }
 
-    movedPiece->setPosition(newX, newY);
-    board[oldX][oldY].assignedPiece = NULL;
-    board[newX][newY].assignedPiece = movedPiece;
+    if(isThereAPieceInTheWay(movedPiece, newX, newY)) {
+        return false;
+    }
+
+    if(gamepieceAtSpot(newX, newY) && isTakingOverPiece(newX, newY, movedPiece)) {
+        movePiece(movedPiece, newX, newY);
+        return true;
+    }
+
+    movePiece(movedPiece,newX,newY);
     return true;
 }
 
@@ -176,6 +185,134 @@ bool Board::rightColorPiece(bool whitesTurn, int x, int y) {
     if(!whitesTurn && board[x][y].assignedPiece->player.compare("black")) {
         return true;
     }
+    return false;
+}
+
+void Board::movePiece(GamePiece* movedPiece, int newX, int newY) {
+    board[movedPiece->x][movedPiece->y].assignedPiece = NULL;
+    movedPiece->setPosition(newX, newY);
+    board[newX][newY].assignedPiece = movedPiece;
+}
+
+bool Board::isTakingOverPiece(int newX, int newY, GamePiece* movingPiece) {
+    GamePiece* old = board[newX][newY].assignedPiece;
+    if(!old->player.compare(movingPiece->player)) {
+        board[newX][newY].assignedPiece = NULL;
+        delete old;
+        return true;
+    }
+    return false;
+}
+
+bool Board::isThereAPieceInTheWay(GamePiece* movingPiece, int newX, int newY) {
+    //is it a knight
+    if(movingPiece->pieceName.compare("knight")) {
+        return false;
+    }
+
+    //is it moving one space
+    if(movingPiece->x == newX) {
+        if(abs(movingPiece->y - newY) == 1) {
+            return false;
+        }
+    }
+    if(movingPiece->y == newY) {
+        if(abs(movingPiece->x - newX) == 1) {
+            return false;
+        }
+    }
+    if(abs(movingPiece->x - newX) == 1 && abs(movingPiece->y - newY) == 1) {
+        return false;
+    }
+
+    //is it moving up or down
+    if(movingPiece->y == newY) {
+        if(movingPiece->x > newX) {
+            for(int i = movingPiece->x; i > newX; i--) {
+                if(gamepieceAtSpot(i, newY)) {
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            for(int i = movingPiece->x; i < newX; i++) {
+                if(gamepieceAtSpot(i, newY)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+    
+    //is it moving left or right
+    if(movingPiece->x == newX) {
+        if(movingPiece->y > newY) {
+            for(int i = movingPiece->y; i > newY; i--) {
+                if(gamepieceAtSpot(newX, i)) {
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            for(int i = movingPiece->y; i < newY; i++) {
+                if(gamepieceAtSpot(newX, i)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+    }
+
+    //is it moving diagonal 4 conditions: x+y+, x-y-, x+y-, x-y+
+    if(movingPiece->x > newX && movingPiece->y > newY) {
+        int x = movingPiece->x - 1;
+        int y = movingPiece->y - 1;
+        while(x > newX && y > newY) {
+            if(gamepieceAtSpot(x, y)) {
+                return true;
+            }
+            x--;
+            y--;
+        }
+    }
+
+    if(movingPiece->x < newX && movingPiece->y < newY) {
+        int x = movingPiece->x + 1;
+        int y = movingPiece->y + 1;
+        while(x < newX && y < newY) {
+            if(gamepieceAtSpot(x, y)) {
+                return true;
+            }
+            x++;
+            y++;
+        }
+    }
+
+    if(movingPiece->x > newX && movingPiece->y < newY) {
+        int x = movingPiece->x - 1;
+        int y = movingPiece->y + 1;
+        while(x > newX && y < newY) {
+            if(gamepieceAtSpot(x, y)) {
+                return true;
+            }
+            x--;
+            y++;
+        }
+    }
+
+    if(movingPiece->x < newX && movingPiece->y > newY) {
+        int x = movingPiece->x + 1;
+        int y = movingPiece->y - 1;
+        while(x < newX && y > newY) {
+            if(gamepieceAtSpot(x, y)) {
+                return true;
+            }
+            x++;
+            y--;
+        }
+    }
+    
     return false;
 }
 

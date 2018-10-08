@@ -24,6 +24,9 @@ class Board {
         void createQueens();
         void createBishops();
         void printCorrespondingPiece(GamePiece* piece);
+        void movePiece(GamePiece* movedPiece, int newX, int newY);
+        bool isTakingOverPiece(int newX, int newY, GamePiece* movingPiece);
+        bool isThereAPieceInTheWay(GamePiece* movingPiece, int newX, int newY);
 
 };
 
