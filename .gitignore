@@ -328,3 +328,21 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+.vscode/settings.json
+build/Chess.exe
+objects/Bishop.o
+objects/Board.o
+objects/GamePiece.o
+objects/King.o
+objects/Knight.o
+objects/Main.o
+objects/Pawn.o
+objects/Queen.o
+objects/Rook.o
+objects/Tile.o
+objects/GamePiece.o
+objects/Main.o
+objects/Pawn.o
+objects/GamePiece.o
+objects/Main.o
+objects/Pawn.o
